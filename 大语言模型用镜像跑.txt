@@ -1,0 +1,51 @@
+docker run -d \
+  --gpus all \
+  -p 11434:11434 \
+  -v ollama:/root/.ollama \
+  --name ollama \
+  ollama/ollama
+
+
+docker ps
+
+
+docker exec -it ollama nvidia-smi
+
+
+docker exec -it ollama bash
+
+
+ollama run qwen3:4b
+
+
+>>> 用一句话解释 UKF 在锂电池 SOC 估计中的作用
+
+
+退出模型：Ctrl + D
+
+退出容器：exit
+
+
+
+
+在宿主机直接使用 API（重点）
+
+你不需要再进容器，直接在宿主机测试：
+
+curl http://localhost:11434/api/generate -d '{
+  "model": "qwen3:4b",
+  "prompt": "解释SOC与SOH的区别",
+  "stream": false
+}'
+
+
+
+
+nvidia-smi
+你会看到：
+
+ollama / ollama_llama_server
+
+显存占用 ~6–8GB
+
+这一步确认你没有「白跑 CPU」。
